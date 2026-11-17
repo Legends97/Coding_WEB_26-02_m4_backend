@@ -1,0 +1,15 @@
+meta {
+  name: Schnelle Rezepte (Filter)
+  type: http
+  seq: 6
+}
+
+get {
+  url: http://localhost:3000/recipes?maxMinuten=20
+  body: none
+  auth: none
+}
+
+assert {
+  res.status: eq 200
+}
