@@ -1,5 +1,5 @@
 meta {
-  name: Rezept loeschen
+  name: Rezept loeschen (mit API-Key)
   type: http
   seq: 8
 }
@@ -8,6 +8,10 @@ delete {
   url: http://localhost:3000/recipes/1
   body: none
   auth: none
+}
+
+headers {
+  x-api-key: geheim123
 }
 
 assert {
