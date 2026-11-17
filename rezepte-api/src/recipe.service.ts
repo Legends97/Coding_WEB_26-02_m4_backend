@@ -3,11 +3,13 @@ export type Rezept = {
   titel: string;
   minuten: number;
   portionen: number;
-  zutaten: string[];
-  anleitung: string;
-  bewertung: number;
-  vegetarisch: boolean;
+  zutaten?: string[];
+  anleitung?: string;
+  bewertung?: number;
+  vegetarisch?: boolean;
 };
+
+let naechsteId = 6;                     // 1-5 sind unten schon belegt
 
 let rezepte: Rezept[] = [
   {
@@ -77,4 +79,18 @@ export async function getAllRecipes(maxMinuten?: number): Promise<Rezept[]> {
 // Ein Rezept über die id — oder null, wenn es keins gibt
 export async function getRecipeById(id: number): Promise<Rezept | null> {
   return rezepte.find((rezept) => rezept.id === id) ?? null;
+}
+
+// Neues Rezept anlegen — die id vergibt der Service selbst
+export async function createRecipe(daten: Omit<Rezept, "id">): Promise<Rezept> {
+  const neues: Rezept = { id: naechsteId++, ...daten };
+  rezepte.push(neues);
+  return neues;
+}
+
+// Rezept löschen — true, wenn wirklich eins entfernt wurde
+export async function deleteRecipe(id: number): Promise<boolean> {
+  const vorher = rezepte.length;
+  rezepte = rezepte.filter((rezept) => rezept.id !== id);
+  return rezepte.length < vorher;
 }

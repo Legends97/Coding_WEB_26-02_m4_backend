@@ -1,5 +1,5 @@
 import { Request, Response, NextFunction } from "express";
-import { getAllRecipes, getRecipeById } from "./recipe.service";
+import { getAllRecipes, getRecipeById, createRecipe, deleteRecipe } from "./recipe.service";
 
 export async function getRecipesHandler(req: Request, res: Response, next: NextFunction) {
   try {
@@ -35,6 +35,31 @@ export async function getRecipeHandler(req: Request, res: Response, next: NextFu
     }
 
     res.json(rezept);
+  } catch (err) {
+    next(err);
+  }
+}
+
+export async function createRecipeHandler(req: Request, res: Response, next: NextFunction) {
+  try {
+    const neues = await createRecipe(req.body);
+    res.status(201).json(neues);        // 201 = Created
+  } catch (err) {
+    next(err);
+  }
+}
+
+export async function deleteRecipeHandler(req: Request, res: Response, next: NextFunction) {
+  try {
+    const id = Number(req.params.id);
+    const geloescht = await deleteRecipe(id);
+
+    if (!geloescht) {
+      res.status(404).json({ fehler: "Rezept nicht gefunden" });
+      return;
+    }
+
+    res.status(204).send();             // 204 = No Content, kein Body
   } catch (err) {
     next(err);
   }

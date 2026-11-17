@@ -1,0 +1,23 @@
+meta {
+  name: Rezept anlegen
+  type: http
+  seq: 7
+}
+
+post {
+  url: http://localhost:3000/recipes
+  body: json
+  auth: none
+}
+
+body:json {
+  {
+    "titel": "Pancakes",
+    "minuten": 15,
+    "portionen": 3
+  }
+}
+
+assert {
+  res.status: eq 201
+}
