@@ -27,12 +27,7 @@ export async function getRecipesHandler(req: Request, res: Response, next: NextF
 export async function getRecipeHandler(req: Request, res: Response, next: NextFunction) {
   try {
     const id = Number(req.params.id);                     // req.params ist immer ein String
-    const rezept = await getRecipeById(id);
-
-    if (!rezept) {
-      res.status(404).json({ fehler: "Rezept nicht gefunden" });
-      return;                                             // sonst würden zwei Antworten rausgehen
-    }
+    const rezept = await getRecipeById(id);               // wirft RecipeNotFoundError, wenn es keins gibt
 
     res.json(rezept);
   } catch (err) {

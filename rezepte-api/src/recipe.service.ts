@@ -1,3 +1,5 @@
+import { RecipeNotFoundError } from "./errors";
+
 export type Rezept = {
   id: number;
   titel: string;
@@ -76,9 +78,15 @@ export async function getAllRecipes(maxMinuten?: number): Promise<Rezept[]> {
   return rezepte.filter((rezept) => rezept.minuten <= maxMinuten);
 }
 
-// Ein Rezept über die id — oder null, wenn es keins gibt
-export async function getRecipeById(id: number): Promise<Rezept | null> {
-  return rezepte.find((rezept) => rezept.id === id) ?? null;
+// Ein Rezept über die id — wirft RecipeNotFoundError, wenn es keins gibt
+export async function getRecipeById(id: number): Promise<Rezept> {
+  const rezept = rezepte.find((eintrag) => eintrag.id === id);
+
+  if (!rezept) {
+    throw new RecipeNotFoundError(id);
+  }
+
+  return rezept;
 }
 
 // Neues Rezept anlegen — die id vergibt der Service selbst
