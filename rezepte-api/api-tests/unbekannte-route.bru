@@ -1,0 +1,16 @@
+meta {
+  name: Unbekannte Route (404-Fallback)
+  type: http
+  seq: 11
+}
+
+get {
+  url: http://localhost:3000/rezeptee
+  body: none
+  auth: none
+}
+
+assert {
+  res.status: eq 404
+  res.body.fehler: eq Route GET /rezeptee existiert nicht
+}

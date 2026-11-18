@@ -15,7 +15,17 @@ app.get("/health", (req, res) => {
   res.json({ status: "ok" });
 });
 
+// Bonus: absichtlich kaputte Route — der Server muss das überleben
+app.get("/crash", (req, res) => {
+  throw new Error("Absichtlicher Absturz zum Testen");
+});
+
 app.use("/recipes", recipeRoutes);    // alle Rezept-Routen hängen unter /recipes
+
+// greift nur, wenn keine Route darüber gepasst hat
+app.use((req, res) => {
+  res.status(404).json({ fehler: `Route ${req.method} ${req.originalUrl} existiert nicht` });
+});
 
 app.use(errorHandler);                // muss NACH den Routen stehen
 
