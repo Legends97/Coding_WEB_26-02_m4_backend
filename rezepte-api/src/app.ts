@@ -1,6 +1,7 @@
 import express from "express";
 import recipeRoutes from "./recipe.routes";
 import { logger } from "./logger.middleware";
+import { errorHandler } from "./error.middleware";
 
 const app = express();
 
@@ -15,5 +16,7 @@ app.get("/health", (req, res) => {
 });
 
 app.use("/recipes", recipeRoutes);    // alle Rezept-Routen hängen unter /recipes
+
+app.use(errorHandler);                // muss NACH den Routen stehen
 
 export default app;                   // die fertige App exportieren (NICHT starten)
