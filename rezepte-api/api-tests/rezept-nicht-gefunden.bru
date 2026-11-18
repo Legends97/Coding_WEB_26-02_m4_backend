@@ -12,4 +12,5 @@ get {
 
 assert {
   res.status: eq 404
+  res.body.fehler: eq Rezept mit ID 999 nicht gefunden
 }

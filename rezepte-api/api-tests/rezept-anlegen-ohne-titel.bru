@@ -1,0 +1,20 @@
+meta {
+  name: Rezept anlegen ohne Titel (400)
+  type: http
+  seq: 10
+}
+
+post {
+  url: http://localhost:3000/recipes
+  body: json
+  auth: none
+}
+
+body:json {
+  {}
+}
+
+assert {
+  res.status: eq 400
+  res.body.fehler: eq Ein Rezept braucht einen Titel
+}
