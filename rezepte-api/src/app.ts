@@ -1,7 +1,7 @@
 import express from "express";
-import recipeRoutes from "./recipe.routes";
-import { logger } from "./logger.middleware";
-import { errorHandler } from "./error.middleware";
+import recipeRoutes from "./recipe.routes.js";
+import { logger } from "./logger.middleware.js";
+import { errorHandler } from "./error.middleware.js";
 
 const app = express();
 

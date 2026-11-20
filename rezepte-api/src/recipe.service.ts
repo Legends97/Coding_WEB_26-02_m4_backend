@@ -1,4 +1,4 @@
-import { RecipeNotFoundError, ValidationError } from "./errors";
+import { RecipeNotFoundError, ValidationError } from "./errors.js";
 
 export type Rezept = {
   id: number;

@@ -4,8 +4,8 @@ import {
   getRecipeHandler,
   createRecipeHandler,
   deleteRecipeHandler,
-} from "./recipe.controller";
-import { requireApiKey } from "./auth.middleware";
+} from "./recipe.controller.js";
+import { requireApiKey } from "./auth.middleware.js";
 
 const router = Router();
 router.get("/", getRecipesHandler);
